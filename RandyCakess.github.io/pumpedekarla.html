@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cumple de Karla 🌿</title>
   <style>
+    @keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.leaf {
+  position: fixed;
+  top: -50px;
+  font-size: 24px;
+  animation: fall linear;
+  pointer-events: none;
+  z-index: 9999;
+}
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
@@ -86,6 +105,11 @@
   </style>
 </head>
 <body onclick="PlayAudio()">
+ 
+    <audio id="audio1" loop>
+      <source src="audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
+      Tu navegador no soporta audio.
+    </audio>
 
  
 
@@ -219,6 +243,7 @@
 
     loadVotes(); // cargar al inicio
   </script>
+  
    <audio id="audio1" autoplay controls loop>
     <source src="/audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
     Tu navegador no soporta audio.
@@ -228,5 +253,40 @@
       document.getElementById("audio1").play();
     }
   </script>
+  <script>
+    // Reproduce el audio al primer clic en cualquier parte del documento
+    document.addEventListener("click", function () {
+      const audio = document.getElementById("audio1");
+      if (audio.paused) {
+        audio.play().catch(e => {
+          console.log("Autoplay bloqueado hasta interacción:", e);
+        });
+      }
+    }, { once: true });
+  </script>
+  <script>
+    const choiceSelect = document.getElementById("choiceSelect");
+    choiceSelect.addEventListener("change", () => {
+      if (choiceSelect.value === "yes") {
+        startLeafRain();
+      }
+    });
+  
+    function startLeafRain() {
+      for (let i = 0; i < 80; i++) {
+        const leaf = document.createElement("div");
+        leaf.classList.add("leaf");
+        leaf.textContent = "🍃";
+        leaf.style.left = Math.random() * 100 + "vw";
+        leaf.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        leaf.style.fontSize = (Math.random() * 16 + 16) + "px";
+        document.body.appendChild(leaf);
+        setTimeout(() => {
+          leaf.remove();
+        }, 5000);
+      }
+    }
+  </script>
+  
 </body>
 </html>
