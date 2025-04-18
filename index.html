@@ -150,7 +150,25 @@
       </div>
     </div>
   </main>
-
+  <script>
+    // Configura con tus datos reales de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAk36oSMWb4N2Sh80qvM0iwNT9QrWHRxkM",
+      authDomain: "cumple-de-karla.firebaseapp.com",
+      projectId: "cumple-de-karla",
+      storageBucket: "cumple-de-karla.firebasestorage.app",
+      messagingSenderId: "711559432038",
+      appId: "1:711559432038:web:47c7ff148ad0d2288b6aa7"
+    };
+  
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  
+    const docRef = db.collection("assistances").doc("karlaBirthday");
+    const namesRef = db.collection("assistances").doc("karlaNames");
+  ...
+  </script>
+  
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
