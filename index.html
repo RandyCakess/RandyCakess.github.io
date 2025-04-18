@@ -6,24 +6,25 @@
   <title>Cumple de Karla 🌿</title>
   <style>
     @keyframes fall {
-  0% {
-    transform: translateY(-100px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
 
-.leaf {
-  position: fixed;
-  top: -50px;
-  font-size: 24px;
-  animation: fall linear;
-  pointer-events: none;
-  z-index: 9999;
-}
+    .leaf {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
@@ -105,13 +106,12 @@
   </style>
 </head>
 <body onclick="PlayAudio()">
- 
-    <audio id="audio1" loop>
-      <source src="audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
-      Tu navegador no soporta audio.
-    </audio>
 
- 
+  <!-- Solo UNA etiqueta de audio -->
+  <audio id="audio1" loop>
+    <source src="audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
+    Tu navegador no soporta audio.
+  </audio>
 
   <header>
     <h1>¿Asistirás al cumple de Karla?</h1>
@@ -134,7 +134,6 @@
       <p id="userMessage"></p>
     </div>
 
-    <!-- Muestra pública de respuestas -->
     <div class="votes-grid" id="votesGrid">
       <div class="vote-cell" id="yesList">
         <h3>✅ Asisten</h3>
@@ -156,7 +155,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
   <script>
-    // Configura con tus datos
+    // Configura con tus datos reales de Firebase
     const firebaseConfig = {
       apiKey: "TU_API_KEY",
       authDomain: "TU_DOMINIO.firebaseapp.com",
@@ -211,7 +210,10 @@
         document.getElementById("responsesContainer").style.display = "block";
         document.getElementById("userMessage").innerText = message;
         localStorage.setItem("karlaVoto", message);
-        loadVotes(); // actualizar visualización
+        loadVotes();
+        if (choice === "yes") {
+          startLeafRain();
+        }
       }).catch(error => {
         console.error("Error al guardar la respuesta:", error);
         alert("Ocurrió un error. Intenta de nuevo.");
@@ -241,20 +243,17 @@
       });
     }
 
-    loadVotes(); // cargar al inicio
+    loadVotes();
   </script>
-  
-   <audio id="audio1" autoplay controls loop>
-    <source src="/audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
-    Tu navegador no soporta audio.
-  </audio>
- <script>
-    function PlayAudio() {
-      document.getElementById("audio1").play();
-    }
-  </script>
+
   <script>
-    // Reproduce el audio al primer clic en cualquier parte del documento
+    function PlayAudio() {
+      const audio = document.getElementById("audio1");
+      audio.play().catch(e => {
+        console.log("Autoplay bloqueado hasta interacción:", e);
+      });
+    }
+
     document.addEventListener("click", function () {
       const audio = document.getElementById("audio1");
       if (audio.paused) {
@@ -264,6 +263,7 @@
       }
     }, { once: true });
   </script>
+
   <script>
     const choiceSelect = document.getElementById("choiceSelect");
     choiceSelect.addEventListener("change", () => {
@@ -271,7 +271,7 @@
         startLeafRain();
       }
     });
-  
+
     function startLeafRain() {
       for (let i = 0; i < 80; i++) {
         const leaf = document.createElement("div");
@@ -287,6 +287,6 @@
       }
     }
   </script>
-  
+
 </body>
 </html>
