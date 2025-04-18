@@ -105,6 +105,7 @@
     }
   </style>
 </head>
+
 <body onclick="PlayAudio()">
 
   <!-- Solo UNA etiqueta de audio -->
@@ -116,7 +117,7 @@
   <header>
     <h1>¿Asistirás al cumple de Karla?</h1>
   </header>
-
+  <button onclick="PlayAudio()">Reproducir Música</button>
   <main>
     <div class="form-container" id="formContainer">
       <input type="text" id="nameInput" placeholder="Tu nombre" required />
@@ -157,12 +158,12 @@
   <script>
     // Configura con tus datos reales de Firebase
     const firebaseConfig = {
-      apiKey: "TU_API_KEY",
-      authDomain: "TU_DOMINIO.firebaseapp.com",
-      projectId: "TU_PROJECT_ID",
-      storageBucket: "TU_PROJECT_ID.appspot.com",
-      messagingSenderId: "TU_ID",
-      appId: "TU_APP_ID"
+      apiKey: "AIzaSyAk36oSMWb4N2Sh80qvM0iwNT9QrWHRxkM",
+      authDomain: "cumple-de-karla.firebaseapp.com",
+      projectId: "cumple-de-karla",
+      storageBucket: "cumple-de-karla.firebasestorage.app",
+      messagingSenderId: "711559432038",
+      appId: "1:711559432038:web:47c7ff148ad0d2288b6aa7"
     };
 
     firebase.initializeApp(firebaseConfig);
