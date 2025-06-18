@@ -2,311 +2,237 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cumple de Karla 🌿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Razones</title>
   <style>
-    @keyframes fall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    .leaf {
-      position: fixed;
-      top: -50px;
-      font-size: 24px;
-      animation: fall linear;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #111;
       color: white;
-      background-image: url('https://media.istockphoto.com/id/1253559146/es/vector/hoja-de-marihuana-dibujada-a-mano-y-concepto-de-reloj-de-pared-4-20-cannabis-verde-sobre.jpg?s=612x612&w=0&k=20&c=I-AL0lc1iTENwTmWBRLwgvrYEBWMwYjcPBZ9g3ICaSM=');
+      text-align: center;
+      overflow: hidden;
     }
 
-    header {
-      background-color: #4B0082;
-      padding: 30px 10px;
-      text-align: center;
+    #inicio {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #111;
     }
 
     h1 {
-      margin: 0;
-      font-size: 2em;
+      font-size: 2.5rem;
     }
 
-    main {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .form-container {
-      background: rgba(0, 0, 0, 0.5);
-      display: inline-block;
-      padding: 20px;
-      border-radius: 12px;
-    }
-
-    input, select, button {
-      margin: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 1em;
-      border: none;
-    }
-
-    button {
-      background-color: #ff69b4;
+    button#startBtn, button#seguirBtn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: purple;
       color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
       cursor: pointer;
     }
 
-    .responses {
-      margin-top: 30px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 15px;
-      border-radius: 10px;
-    }
-
-    .votes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .vote-cell {
-      background-color: #55165e;
-      border-radius: 10px;
-      padding: 15px;
-      min-height: 100px;
-    }
-
-    .vote-cell h3 {
-      margin-top: 0;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      padding-bottom: 5px;
-    }
-
-    .vote-name {
-      margin: 5px 0;
-    }
-
-    audio {
+    #seguirBtn {
       display: none;
+    }
+
+    .emoji {
+      position: fixed;
+      top: -30px;
+      font-size: 2rem;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    #contenido {
+      display: none;
+      background-color: black;
+      padding: 50px 20px;
+    }
+
+    .razon {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .razon.mostrar {
+      opacity: 1;
+    }
+
+    #preguntaFinal {
+      display: none;
+      margin-top: 50px;
+    }
+
+    #preguntaFinal h2 {
+      font-size: 2rem;
+    }
+
+    #preguntaFinal p {
+      font-size: 1rem;
+      color: #aaa;
+    }
+
+    .botones {
+      margin-top: 20px;
+    }
+
+    .botones button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 0 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+    }
+
+    #leyendaFinal {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    #leyendaFinal.mostrar {
+      visibility: visible;
+      opacity: 1;
     }
   </style>
 </head>
+<body>
+  <div id="inicio">
+    <h1>Razones del por qué deberías decirme</h1>
+    <button id="startBtn">Empezar</button>
+  </div>
 
-<body onclick="PlayAudio()">
-
-  <!-- Solo UNA etiqueta de audio -->
-  <audio id="audio1" loop>
-    <source src="audio/OZZY OSBOURNE - No More Tears (Official Video).mp3" type="audio/mp3">
-    Tu navegador no soporta audio.
-  </audio>
-
-  <header>
-    <h1>¿Asistirás al cumple de Karla?</h1>
-  </header>
-  <button onclick="PlayAudio()">Reproducir Música</button>
-  <main>
-    <div class="form-container" id="formContainer">
-      <input type="text" id="nameInput" placeholder="Tu nombre" required />
-      <select id="choiceSelect">
-        <option value="">Elige una opción</option>
-        <option value="yes">Sí</option>
-        <option value="no">No</option>
-        <option value="maybe">Quizás</option>
-      </select>
-      <br />
-      <button onclick="submitResponse()">Enviar</button>
-    </div>
-
-    <div class="responses" id="responsesContainer" style="display:none;">
-      <p id="userMessage"></p>
-    </div>
-
-    <div class="votes-grid" id="votesGrid">
-      <div class="vote-cell" id="yesList">
-        <h3>✅ Asisten</h3>
-        <div id="yesNames"></div>
-      </div>
-      <div class="vote-cell" id="noList">
-        <h3>❌ No Asisten</h3>
-        <div id="noNames"></div>
-      </div>
-      <div class="vote-cell" id="maybeList">
-        <h3>🤔 Tal vez</h3>
-        <div id="maybeNames"></div>
+  <div id="contenido">
+    <div id="razones"></div>
+    <button id="seguirBtn">Seguir</button>
+    <div id="preguntaFinal">
+      <h2>¿Me vas a decir?</h2>
+      <p>Te reto que pongas que no</p>
+      <div class="botones">
+        <button id="btnSi">Sí</button>
+        <button id="btnNo">No</button>
       </div>
     </div>
-  </main>
-  <script>
-    // Configura con tus datos reales de Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyAk36oSMWb4N2Sh80qvM0iwNT9QrWHRxkM",
-      authDomain: "cumple-de-karla.firebaseapp.com",
-      projectId: "cumple-de-karla",
-      storageBucket: "cumple-de-karla.firebasestorage.app",
-      messagingSenderId: "711559432038",
-      appId: "1:711559432038:web:47c7ff148ad0d2288b6aa7"
-    };
-  
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  
-    const docRef = db.collection("assistances").doc("karlaBirthday");
-    const namesRef = db.collection("assistances").doc("karlaNames");
-  ...
-  </script>
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+  </div>
+
+  <div id="leyendaFinal">Sabía que dirías que no ❤️</div>
 
   <script>
-    // Configura con tus datos reales de Firebase
-    const firebaseConfig = {
-  apiKey: "AIzaSyAk36oSMWb4N2Sh80qvM0iwNT9QrWHRxkM",
-  authDomain: "cumple-de-karla.firebaseapp.com",
-  projectId: "cumple-de-karla",
-  storageBucket: "cumple-de-karla.firebasestorage.app",
-  messagingSenderId: "711559432038",
-  appId: "1:711559432038:web:47c7ff148ad0d2288b6aa7",
-  measurementId: "G-7DL70DXYMG"
-};
+    const startBtn = document.getElementById('startBtn');
+    const seguirBtn = document.getElementById('seguirBtn');
+    const inicio = document.getElementById('inicio');
+    const contenido = document.getElementById('contenido');
+    const razones = document.getElementById('razones');
+    const leyendaFinal = document.getElementById('leyendaFinal');
+    const btnNo = document.getElementById('btnNo');
+    const btnSi = document.getElementById('btnSi');
+    const preguntaFinal = document.getElementById('preguntaFinal');
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const lista = [
+      'Me harías muy feliz',
+      'Te voy a besar mucho',
+      'Me quitarías la curiosidad que tengo',
+      'Te quitarías la ansiedad de decirme xd',
+      '¿Ya mencioné que me harías muy feliz?',
+      'Y namás porque sí jajajaja'
+    ];
 
-    const docRef = db.collection("assistances").doc("karlaBirthday");
-    const namesRef = db.collection("assistances").doc("karlaNames");
+    const posiciones = [
+      { top: '0px', left: '0px' },
+      { top: '0px', left: '60%' },
+      { top: '50px', left: '20%' },
+      { top: '20px', left: '80%' },
+      { top: '10px', left: '40%' }
+    ];
 
-    const voted = localStorage.getItem("karlaVoto");
-    if (voted) {
-      document.getElementById("formContainer").style.display = "none";
-      document.getElementById("responsesContainer").style.display = "block";
-      document.getElementById("userMessage").innerText = voted;
+    let emojiInterval;
+    let emojiLluviaActiva = true;
+    let razonIndex = 0;
+
+    function lluviaEmoji() {
+      if (!emojiLluviaActiva) return;
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.textContent = '❤️';
+      emoji.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 5000);
     }
 
-    function submitResponse() {
-      const name = document.getElementById("nameInput").value.trim();
-      const choice = document.getElementById("choiceSelect").value;
-
-      if (!name || !choice) {
-        alert("Por favor, completa todos los campos.");
+    function mostrarSiguienteRazon() {
+      if (razonIndex >= lista.length) {
+        seguirBtn.style.display = 'none';
+        emojiLluviaActiva = false;
+        clearInterval(emojiInterval);
+        setTimeout(() => {
+          preguntaFinal.style.display = 'block';
+        }, 1000);
         return;
       }
-
-      db.runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-          const data = doc.exists ? doc.data() : { yes: 0, no: 0, maybe: 0 };
-          data[choice] = (data[choice] || 0) + 1;
-          transaction.set(docRef, data);
-        });
-      }).then(() => {
-        return namesRef.update({
-          [name]: choice
-        }).catch(() => {
-          return namesRef.set({ [name]: choice }, { merge: true });
-        });
-      }).then(() => {
-        const msgMap = {
-          yes: "dice que asistirá 🎉",
-          no: "no podrá asistir 😢",
-          maybe: "no está seguro aún 🤔"
-        };
-        const message = `${name} ${msgMap[choice]}`;
-        document.getElementById("formContainer").style.display = "none";
-        document.getElementById("responsesContainer").style.display = "block";
-        document.getElementById("userMessage").innerText = message;
-        localStorage.setItem("karlaVoto", message);
-        loadVotes();
-        if (choice === "yes") {
-          startLeafRain();
-        }
-      }).catch(error => {
-        console.error("Error al guardar la respuesta:", error);
-        alert("Ocurrió un error. Intenta de nuevo.");
-      });
+      const r = document.createElement('div');
+      r.className = 'razon';
+      r.textContent = '* ' + lista[razonIndex];
+      razones.appendChild(r);
+      setTimeout(() => r.classList.add('mostrar'), 100);
+      razonIndex++;
     }
 
-    function loadVotes() {
-      namesRef.get().then(doc => {
-        if (!doc.exists) return;
-        const data = doc.data();
-        const yesDiv = document.getElementById("yesNames");
-        const noDiv = document.getElementById("noNames");
-        const maybeDiv = document.getElementById("maybeNames");
-
-        yesDiv.innerHTML = "";
-        noDiv.innerHTML = "";
-        maybeDiv.innerHTML = "";
-
-        Object.entries(data).forEach(([name, vote]) => {
-          const div = document.createElement("div");
-          div.className = "vote-name";
-          div.textContent = name;
-          if (vote === "yes") yesDiv.appendChild(div);
-          if (vote === "no") noDiv.appendChild(div);
-          if (vote === "maybe") maybeDiv.appendChild(div);
-        });
-      });
-    }
-
-    loadVotes();
-  </script>
-
-  <script>
-    function PlayAudio() {
-      const audio = document.getElementById("audio1");
-      audio.play().catch(e => {
-        console.log("Autoplay bloqueado hasta interacción:", e);
-      });
-    }
-
-    document.addEventListener("click", function () {
-      const audio = document.getElementById("audio1");
-      if (audio.paused) {
-        audio.play().catch(e => {
-          console.log("Autoplay bloqueado hasta interacción:", e);
-        });
-      }
-    }, { once: true });
-  </script>
-
-  <script>
-    const choiceSelect = document.getElementById("choiceSelect");
-    choiceSelect.addEventListener("change", () => {
-      if (choiceSelect.value === "yes") {
-        startLeafRain();
-      }
+    startBtn.addEventListener('click', () => {
+      inicio.style.display = 'none';
+      contenido.style.display = 'block';
+      emojiLluviaActiva = true;
+      emojiInterval = setInterval(lluviaEmoji, 300);
+      seguirBtn.style.display = 'inline-block';
+      mostrarSiguienteRazon();
     });
 
-    function startLeafRain() {
-      for (let i = 0; i < 80; i++) {
-        const leaf = document.createElement("div");
-        leaf.classList.add("leaf");
-        leaf.textContent = "🍃";
-        leaf.style.left = Math.random() * 100 + "vw";
-        leaf.style.animationDuration = (Math.random() * 2 + 3) + "s";
-        leaf.style.fontSize = (Math.random() * 16 + 16) + "px";
-        document.body.appendChild(leaf);
-        setTimeout(() => {
-          leaf.remove();
-        }, 5000);
-      }
-    }
-  </script>
+    seguirBtn.addEventListener('click', () => {
+      mostrarSiguienteRazon();
+    });
 
+    btnSi.addEventListener('click', () => {
+      leyendaFinal.classList.add('mostrar');
+    });
+
+    let posIndex = 0;
+    btnNo.addEventListener('mouseover', () => {
+      const pos = posiciones[posIndex % posiciones.length];
+      btnNo.style.position = 'absolute';
+      btnNo.style.top = pos.top;
+      btnNo.style.left = pos.left;
+      posIndex++;
+    });
+  </script>
 </body>
 </html>
